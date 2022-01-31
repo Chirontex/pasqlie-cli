@@ -2,10 +2,10 @@ namespace Pasqliecli.Backend.Dto;
 
 public class ConnectionDto
 {
-    string Host { get; }
-    string Username { get; }
-    string Password { get; }
-    string Database { get; }
+    public string Host { get; }
+    public string Username { get; }
+    public string Password { get; }
+    public string Database { get; }
 
     public ConnectionDto(
         in string host,
