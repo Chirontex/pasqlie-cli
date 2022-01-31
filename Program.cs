@@ -4,7 +4,7 @@ namespace Pasqliecli;
 
 class Program
 {
-    public static void Main(string[] srgs)
+    public static void Main(string[] args)
     {
         Console.WriteLine("Hello world!");
     }
