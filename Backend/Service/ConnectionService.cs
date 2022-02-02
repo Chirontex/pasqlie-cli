@@ -17,7 +17,7 @@ public class ConnectionService
         return this;
     }
 
-    //<exception>NullConnectionException</exception>
+    /* <exception>NullConnectionException</exception> */
     public NpgsqlDataReader RequestDatabasesList()
     {
         this._checkConnection()._connection.Open();
@@ -32,6 +32,50 @@ public class ConnectionService
         return result;
     }
 
+    /* <exception>NullConnectionException</exception> */
+    public NpgsqlDataReader? Execute(in string query, out string? errorMessage)
+    {
+        this._checkConnection()._connection.Open();
+
+        try
+        {
+            var result = (new NpgsqlCommand(query, this._connection))
+                .ExecuteReader();
+
+            this._connection.Close();
+
+            errorMessage = null;
+
+            return result;
+        }
+        catch (System.SystemException e)
+        {
+            errorMessage = e.Message;
+
+            return null;
+        }
+    }
+
+    /* <exception>NullConnectionException</exception> */
+    public string? Execute(in string query, out NpgsqlDataReader? result)
+    {
+        string? errorMessage;
+
+        result = this.Execute(query, out errorMessage);
+
+        return errorMessage;
+    }
+
+    /* <exception>NullConnectionException</exception> */
+    public void Execute(
+        in string query,
+        out string? errorMessage,
+        out NpgsqlDataReader? result
+    ) {
+        errorMessage = this.Execute(query, out result);
+    }
+
+    /* <exception>NullConnectionException</exception> */
     protected ConnectionService _checkConnection()
     {
         if (this._connection == null)
