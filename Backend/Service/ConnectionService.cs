@@ -67,12 +67,14 @@ public class ConnectionService
     }
 
     /* <exception>NullConnectionException</exception> */
-    public void Execute(
+    public ConnectionService Execute(
         in string query,
         out string? errorMessage,
         out NpgsqlDataReader? result
     ) {
         errorMessage = this.Execute(query, out result);
+
+        return this;
     }
 
     /* <exception>NullConnectionException</exception> */
