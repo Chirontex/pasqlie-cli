@@ -1,10 +1,12 @@
 using Npgsql;
 using Pasqliecli.Backend.Dto;
 using Pasqliecli.Backend.Exception;
+using Pasqliecli.Backend.Interfaces.Service;
+using System;
 
 namespace Pasqliecli.Backend.Service;
 
-public class ConnectionService
+public class ConnectionService : IConnectionService
 {
     protected NpgsqlConnection? _connection;
 
@@ -17,7 +19,6 @@ public class ConnectionService
         return this;
     }
 
-    /* <exception>NullConnectionException</exception> */
     public NpgsqlDataReader RequestDatabasesList()
     {
         this._checkConnection()._connection.Open();
@@ -32,7 +33,6 @@ public class ConnectionService
         return result;
     }
 
-    /* <exception>NullConnectionException</exception> */
     public NpgsqlDataReader? Execute(in string query, out string? errorMessage)
     {
         this._checkConnection()._connection.Open();
@@ -48,7 +48,7 @@ public class ConnectionService
 
             return result;
         }
-        catch (System.SystemException e)
+        catch (SystemException e)
         {
             errorMessage = e.Message;
 
@@ -56,7 +56,6 @@ public class ConnectionService
         }
     }
 
-    /* <exception>NullConnectionException</exception> */
     public string? Execute(in string query, out NpgsqlDataReader? result)
     {
         string? errorMessage;
@@ -66,7 +65,6 @@ public class ConnectionService
         return errorMessage;
     }
 
-    /* <exception>NullConnectionException</exception> */
     public ConnectionService Execute(
         in string query,
         out string? errorMessage,
