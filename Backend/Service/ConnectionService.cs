@@ -7,7 +7,12 @@ namespace Pasqliecli.Backend.Service;
 
 public class ConnectionService : IConnectionService
 {
-    protected NpgsqlConnection _connection = new NpgsqlConnection();
+    protected NpgsqlConnection _connection;
+
+    public ConnectionService(NpgsqlConnection connection)
+    {
+        this._connection = connection;
+    }
 
     public ConnectionService CreateConnection(in ConnectionDto connectionDto)
     {
