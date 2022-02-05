@@ -7,7 +7,7 @@ namespace Pasqliecli.Backend.DI;
 
 public class Container
 {
-    public static Container? Instance;
+    protected static Container? _instance;
 
     protected Dictionary<string, dynamic> _services;
 
@@ -32,12 +32,12 @@ public class Container
 
     public static Container GetInstance()
     {
-        if (Container.Instance != null)
+        if (Container._instance != null)
         {
-            return Container.Instance;
+            return Container._instance;
         }
 
-        return Container.Instance = new Container(
+        return Container._instance = new Container(
             Container._createServicesList()
         );
     }
