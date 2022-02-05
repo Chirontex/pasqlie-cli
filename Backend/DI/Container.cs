@@ -2,7 +2,6 @@ using Npgsql;
 using Pasqliecli.Backend.Exception.DI;
 using Pasqliecli.Backend.Service;
 using System.Collections.Generic;
-using System;
 
 namespace Pasqliecli.Backend.DI;
 
@@ -22,9 +21,9 @@ public class Container
         foreach (var service in this._services)
         {
             if (service.Key == id
-                || Type.GetType(service.Value) == id)
+                || service.Value.GetType().ToString() == id)
             {
-                return service;
+                return service.Value;
             }
         }
 
