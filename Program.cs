@@ -1,7 +1,7 @@
 ﻿using Garner;
+using Pasqliecli.Backend.Controller;
 using Pasqliecli.Backend.Factory;
 using Pasqliecli.Backend.Helper;
-using Pasqliecli.Backend.Service;
 using System;
 
 namespace Pasqliecli;
@@ -13,10 +13,10 @@ class Program
         Container.ServicesDictionaryFactory = new ServicesDictionaryFactory();
         Container container = Container.GetInstance();
 
-        ConnectionService connectionService = container.Get(
-            ClassNameHelper.GetClassName(typeof(ConnectionService))
+        MainController mainController = container.Get(
+            ClassNameHelper.GetClassName(typeof(MainController))
         );
 
-        Console.WriteLine(connectionService.ToString());
+        Console.WriteLine(mainController.ToString());
     }
 }
