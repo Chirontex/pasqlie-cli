@@ -1,4 +1,6 @@
-﻿using Pasqliecli.Backend.DI;
+﻿using Garner;
+using Pasqliecli.Backend.Factory;
+using Pasqliecli.Backend.Helper;
 using Pasqliecli.Backend.Service;
 using System;
 
@@ -8,9 +10,12 @@ class Program
 {
     public static void Main(string[] args)
     {
-        var container = Container.GetInstance();
-        ConnectionService connectionService = container
-            .GetService(typeof(ConnectionService).FullName);
+        Container.ServicesDictionaryFactory = new ServicesDictionaryFactory();
+        Container container = Container.GetInstance();
+
+        ConnectionService connectionService = container.Get(
+            ClassNameHelper.GetClassName(typeof(ConnectionService))
+        );
 
         Console.WriteLine(connectionService.ToString());
     }
