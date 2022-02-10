@@ -1,5 +1,6 @@
 ﻿using Garner;
 using Pasqliecli.Backend.Controller;
+using Pasqliecli.Backend.Dto;
 using Pasqliecli.Backend.Factory;
 using Pasqliecli.Backend.Helper;
 using System;
@@ -21,8 +22,12 @@ class Program
             ClassNameHelper.GetClassName(typeof(ConnectionDtoFactory))
         );
 
-        Console.WriteLine(
-            connectionDtoFactory.createConnectionDto(args).ToString()
-        );
+        ConnectionDto connectionDto = connectionDtoFactory
+            .createConnectionDto(args);
+
+        Console.WriteLine(connectionDto.Host);
+        Console.WriteLine(connectionDto.Username);
+        Console.WriteLine(connectionDto.Password);
+        Console.WriteLine(connectionDto.Database);
     }
 }
