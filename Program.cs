@@ -17,6 +17,12 @@ class Program
             ClassNameHelper.GetClassName(typeof(MainController))
         );
 
-        Console.WriteLine(mainController.ToString());
+        ConnectionDtoFactory connectionDtoFactory = container.Get(
+            ClassNameHelper.GetClassName(typeof(ConnectionDtoFactory))
+        );
+
+        Console.WriteLine(
+            connectionDtoFactory.createConnectionDto(args).ToString()
+        );
     }
 }

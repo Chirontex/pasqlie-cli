@@ -1,6 +1,7 @@
 using Garner.Interfaces;
 using Npgsql;
 using Pasqliecli.Backend.Controller;
+using Pasqliecli.Backend.Factory;
 using Pasqliecli.Backend.Helper;
 using Pasqliecli.Backend.Service;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ public class ServicesDictionaryFactory : IServicesDictionaryFactory
 
         this
             .AddConnectionService(in dictionary)
+            .AddConnectionDtoFactory(in dictionary)
             .AddMainController(in dictionary);
 
         return dictionary;
@@ -44,6 +46,17 @@ public class ServicesDictionaryFactory : IServicesDictionaryFactory
             new MainController(
                 dictionary[ClassNameHelper.GetClassName(typeof(ConnectionService))]
             )
+        );
+
+        return this;
+    }
+
+    protected ServicesDictionaryFactory AddConnectionDtoFactory(
+        in Dictionary<string, dynamic> dictionary
+    ) {
+        dictionary.Add(
+            ClassNameHelper.GetClassName(typeof(ConnectionDtoFactory)),
+            new ConnectionDtoFactory()
         );
 
         return this;
