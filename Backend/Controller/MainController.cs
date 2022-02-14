@@ -1,26 +1,26 @@
-using Npgsql;
-using Pasqliecli.Backend.Dto;
 using Pasqliecli.Backend.Service;
 using Pasqliecli.Frontend.Dto;
+using Pasqliecli.Frontend.Factory;
 
 namespace Pasqliecli.Backend.Controller;
 
 public class MainController
 {
     protected ConnectionService _connectionService;
+    protected ViewFactory _viewFactory;
 
-    public MainController(ConnectionService connectionService)
-    {
+    public MainController(
+        ConnectionService connectionService,
+        ViewFactory viewFactory
+    ) {
         this._connectionService = connectionService;
+        this._viewFactory = viewFactory;
     }
 
     public View GetDatabasesList()
     {
-        NpgsqlDataReader result = this._connectionService
-            .RequestDatabasesList();
-
-        // TODO: форматирование дата ридера в объект фронта
-
-        return new View();
+        return this._viewFactory.CreateViewFromDataReader(
+            this._connectionService.RequestDatabasesList()
+        );
     }
 }
