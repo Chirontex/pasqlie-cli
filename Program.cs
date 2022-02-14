@@ -1,9 +1,9 @@
 ﻿using Garner;
 using Pasqliecli.Backend.Controller;
-using Pasqliecli.Backend.Dto;
 using Pasqliecli.Backend.Exception;
 using Pasqliecli.Backend.Factory;
 using Pasqliecli.Backend.Helper;
+using Pasqliecli.Backend.Service;
 using System;
 
 namespace Pasqliecli;
@@ -19,19 +19,21 @@ class Program
             ClassNameHelper.GetClassName(typeof(MainController))
         );
 
+        ConnectionService connectionService = container.Get(
+            ClassNameHelper.GetClassName(typeof(ConnectionService))
+        );
+
         ConnectionDtoFactory connectionDtoFactory = container.Get(
             ClassNameHelper.GetClassName(typeof(ConnectionDtoFactory))
         );
 
         try
         {
-            ConnectionDto connectionDto = connectionDtoFactory
-                .createConnectionDto(args);
+            connectionService.CreateConnection(
+                connectionDtoFactory.createConnectionDto(args)
+            );
 
-            Console.WriteLine(connectionDto.Host);
-            Console.WriteLine(connectionDto.Username);
-            Console.WriteLine(connectionDto.Password);
-            Console.WriteLine(connectionDto.Database);
+            // TODO: вызов контроллера
         }
         catch (BasicException e)
         {
