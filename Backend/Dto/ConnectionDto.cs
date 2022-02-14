@@ -2,18 +2,17 @@ namespace Pasqliecli.Backend.Dto;
 
 public class ConnectionDto
 {
-    public string Host { get; }
-    public string Username { get; }
-    public string Password { get; }
-    public string Database { get; }
+    public string Host { get; init; }
+    public string Username { get; init; }
+    public string Password { get; init; }
+    public string Database { get; init; }
 
     public ConnectionDto(
-        in string host,
-        in string username,
-        in string password,
-        in string database
-    )
-    {
+        string host,
+        string username,
+        string password,
+        string database
+    ) {
         this.Host = host;
         this.Username = username;
         this.Password = password;

@@ -18,11 +18,6 @@ public class ConnectionDtoFactory
             throw new InvalidArgsNumberException(errorMessage);
         }
 
-        return new ConnectionDto(
-            args[0],
-            args[1],
-            args[2],
-            args[3]
-        );
+        return new ConnectionDto(args[0], args[1], args[2], args[3]);
     }
 }
