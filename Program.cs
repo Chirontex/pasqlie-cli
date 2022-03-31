@@ -4,6 +4,7 @@ using Pasqliecli.Backend.Exception;
 using Pasqliecli.Backend.Factory;
 using Pasqliecli.Backend.Helper;
 using Pasqliecli.Backend.Service;
+using Pasqliecli.Frontend.Dto;
 using System;
 
 namespace Pasqliecli;
@@ -33,7 +34,8 @@ class Program
                 connectionDtoFactory.createConnectionDto(args)
             );
 
-            // TODO: вызов контроллера
+            // TODO: Добавить логику взаимодействия с пользователем
+            mainController.GetDatabasesList().OutputContent();
         }
         catch (BasicException e)
         {

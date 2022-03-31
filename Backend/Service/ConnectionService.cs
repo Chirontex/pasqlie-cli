@@ -14,6 +14,16 @@ public class ConnectionService : IConnectionService
         this._connection = connection;
     }
 
+    public void ConnectionOpen()
+    {
+        this._connection.Open();
+    }
+
+    public void ConnectionClose()
+    {
+        this._connection.Close();
+    }
+
     public ConnectionService CreateConnection(in ConnectionDto connectionDto)
     {
         this._connection.ConnectionString = $"Host={connectionDto.Host};Username={connectionDto.Username};Password={connectionDto.Password};Database={connectionDto.Database}";
@@ -23,29 +33,20 @@ public class ConnectionService : IConnectionService
 
     public NpgsqlDataReader RequestDatabasesList()
     {
-        this._connection.Open();
-
         var result = (new NpgsqlCommand(
-            "SELECT dataname FROM pg_database",
+            "SELECT t.datname FROM pg_database AS t",
             this._connection
         )).ExecuteReader();
-
-        this._connection.Close();
 
         return result;
     }
 
     public NpgsqlDataReader? Execute(in string query, out string? errorMessage)
     {
-        this._connection.Open();
-
         try
         {
             var result = (new NpgsqlCommand(query, this._connection))
                 .ExecuteReader();
-
-            this._connection.Close();
-
             errorMessage = null;
 
             return result;

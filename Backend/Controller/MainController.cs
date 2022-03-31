@@ -19,8 +19,14 @@ public class MainController
 
     public View GetDatabasesList()
     {
-        return this._viewFactory.CreateViewFromDataReader(
+        this._connectionService.ConnectionOpen();
+
+        View result = this._viewFactory.CreateViewFromDataReader(
             this._connectionService.RequestDatabasesList()
         );
+
+        this._connectionService.ConnectionClose();
+
+        return result;
     }
 }
